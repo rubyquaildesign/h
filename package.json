@@ -1,5 +1,6 @@
 {
     "name": "@rupertofly/h",
+    "sideEffects": false,
     "version": "0.8.4",
     "description": "A set of useful functions and types for me",
     "main": "dist/index.js",
@@ -21,7 +22,16 @@
     "devDependencies": {
         "@types/d3-path": "^1.0.8",
         "@types/tape": "^4.2.34",
-        "tape": "^4.13.2"
+        "@typescript-eslint/eslint-plugin": "^2.20.0",
+        "@typescript-eslint/parser": "^2.20.0",
+        "eslint": "^6.8.0",
+        "eslint-config-prettier": "^6.10.0",
+        "eslint-plugin-prettier": "^3.1.2",
+        "eslint-plugin-react": "^7.18.3",
+        "eslint-plugin-tsdoc": "^0.2.3",
+        "prettier": "^2.0.4",
+        "tape": "^4.13.2",
+        "typescript": "^3.8.3"
     },
     "dependencies": {
         "d3-path": "^1.0.9",
