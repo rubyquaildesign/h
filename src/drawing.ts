@@ -1,8 +1,10 @@
-import { Line, Loop, Shape, Pt } from './types';
+import { Line, Loop, Shape, Pt, Extent } from './types';
 import * as M from './maths';
 import * as P from 'd3-path';
 type Drawable = P.Path | CanvasRenderingContext2D;
 function isCtx(ctx: Drawable): ctx is CanvasRenderingContext2D {
+    if (typeof window === 'undefined') return false;
+
     return ctx instanceof CanvasRenderingContext2D;
 }
 export function drawLine(line: Line, ctx?: P.Path): string;
@@ -54,7 +56,7 @@ export function drawDot(
     ctx.ellipse(x, y, radius, radius, 0, 0, M.TAU);
     ctx.closePath();
 }
-// TODO: Solve the equation to generate a mid point from the 2nd last point and the 2nd point for a closing loop
+// ? FUTURE ABILITY Solve the equation to generate a mid point from the 2nd last point and the 2nd point for a closing loop
 export function drawFauxQuadLoop(
     loop: Loop,
     close: boolean,
@@ -71,7 +73,24 @@ export function drawFauxQuadLoop(
     ctx: Drawable = P.path()
 ) {
     const toDraw = loop.slice();
+    const ptsNo = toDraw.length;
 
-    if (toDraw.length % 2 && close) {
+    if (close && !ptsNo)
+        throw new Error(
+            `in order to close a Faux quad loop, there needs to be an even number of input points. ${ptsNo} points where put in`
+        );
+    if (!close && ptsNo)
+        throw new Error(
+            `in order to draw a open Faux quad loop, there needs to be an odd number of input points. ${ptsNo} points where put in`
+        );
+    const start = toDraw.shift();
+
+    if (close) toDraw.push(start);
+    ctx.moveTo(...start);
+    for (let i = 0; i < toDraw.length; i += 2) {
+        const [x1, y1, x2, y2] = [...toDraw[i], ...toDraw[i + 1]];
+
+        ctx.quadraticCurveTo(x1, y1, x2, y2);
     }
+    if (!isCtx(ctx)) return ctx.toString();
 }

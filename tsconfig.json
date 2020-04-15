@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "UMD",
         "outDir": "./dist",
         "target": "ES2018",
         "jsx": "react",
