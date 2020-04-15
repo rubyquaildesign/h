@@ -13,13 +13,14 @@
         "singleQuote": true,
         "tabWidth": 4
     },
-    "types": "./dist/index.d.ts",
+    "types": "./types/index.d.ts",
     "scripts": {
         "build": "tsc",
         "watch": "tsc -w",
         "test": "ts-node ./test/tests.ts | tap-nyan"
     },
     "devDependencies": {
+        "@types/b-spline": "^2.0.0",
         "@types/d3-path": "^1.0.8",
         "@types/jsdom": "^16.2.1",
         "@types/tape": "^4.2.34",
@@ -37,6 +38,7 @@
         "typescript": "^3.8.3"
     },
     "dependencies": {
+        "b-spline": "^2.0.1",
         "d3-path": "^1.0.9",
         "tslib": "^1.11.1"
     }

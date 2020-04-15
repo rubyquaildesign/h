@@ -11,7 +11,8 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "lib": ["ESNext", "ES2019", "DOM"],
-        "declaration": true
+        "declaration": true,
+        "declarationDir": "types"
     },
     "typeAcquisition": { "enable": true },
     "include": ["src"]

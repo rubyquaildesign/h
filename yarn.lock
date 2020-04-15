@@ -46,6 +46,11 @@
   resolved "https://registry.yarnpkg.com/@microsoft/tsdoc/-/tsdoc-0.12.19.tgz#2173ccb92469aaf62031fa9499d21b16d07f9b57"
   integrity sha512-IpgPxHrNxZiMNUSXqR1l/gePKPkfAmIKoDRP9hp7OwjU29ZR8WCJsOJ8iBKgw0Qk+pFwR+8Y1cy8ImLY6e9m4A==
 
+"@types/b-spline@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/b-spline/-/b-spline-2.0.0.tgz#8bdd6b6ccd9692f775039515c03899bc20e01fc7"
+  integrity sha512-qBWrZ3/jG28l3t/86ZAJbEApszSQJi0anokF8pUaN2006llZfTSDwXrTPk2RIEHxv8F4E1ZMHAJseKbu9wvVeA==
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -277,6 +282,11 @@ aws4@^1.8.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.9.1.tgz#7e33d8f7d449b3f673cd72deb9abdc552dbe528e"
   integrity sha512-wMHVg2EOHaMRxbzgFJ9gtjOOCrI80OHLG14rxi28XwOW8ux6IiEbRCGGGqCtdAIg4FQCbW20k9RsT4y3gJlFug==
+
+b-spline@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/b-spline/-/b-spline-2.0.1.tgz#81c94e5dba8bb39cfa740aeb0aa85f4f911815a7"
+  integrity sha1-gclOXbqLs5z6dArrCqhfT5EYFac=
 
 balanced-match@^1.0.0:
   version "1.0.0"
