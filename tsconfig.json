@@ -4,7 +4,7 @@
         "outDir": "./dist",
         "target": "ES2018",
         "jsx": "react",
-        "importHelpers": true,
+        "importHelpers": false,
         "moduleResolution": "node",
         "esModuleInterop": true,
         "sourceMap": true,
