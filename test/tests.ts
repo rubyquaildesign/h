@@ -34,5 +34,36 @@ test('quadLine', (t) => {
         'M0,0Q1,0,1,1Q0,1,0,0',
         'draw quad'
     );
+    t.throws(() => {
+        drawFauxQuadLoop(
+            [
+                [0, 0],
+                [1, 0],
+                [1, 1],
+            ],
+            true
+        );
+    });
+    t.throws(() => {
+        drawFauxQuadLoop(
+            [
+                [0, 0],
+                [1, 0],
+                [1, 1],
+                [0, 1],
+            ],
+            false
+        );
+    });
+    t.doesNotThrow(() => {
+        drawFauxQuadLoop(
+            [
+                [0, 0],
+                [1, 0],
+                [1, 1],
+            ],
+            false
+        );
+    });
     t.end();
 });

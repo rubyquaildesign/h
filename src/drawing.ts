@@ -24,10 +24,11 @@ export function drawLoop(
     ctx: CanvasRenderingContext2D
 ): void;
 export function drawLoop(loop: Loop, close: boolean, ctx: Drawable = P.path()) {
+    if (loop.length < 1) throw new Error();
     const toDraw = loop.slice();
     const start = toDraw.shift();
 
-    ctx.moveTo(...start);
+    ctx.moveTo(...start!);
 
     toDraw.forEach((pt) => ctx.lineTo(...pt));
     if (close) ctx.closePath();
@@ -75,18 +76,18 @@ export function drawFauxQuadLoop(
     const toDraw = loop.slice();
     const ptsNo = toDraw.length;
 
-    if (close && !(ptsNo % 2))
+    if (close && ptsNo % 2)
         throw new Error(
             `in order to close a Faux quad loop, there needs to be an even number of input points. ${ptsNo} points where put in`
         );
-    if (!close && ptsNo % 2)
+    if (!close && !(ptsNo % 2))
         throw new Error(
             `in order to draw a open Faux quad loop, there needs to be an odd number of input points. ${ptsNo} points where put in`
         );
     const start = toDraw.shift();
 
-    if (close) toDraw.push(start);
-    ctx.moveTo(...start);
+    if (close) toDraw.push(start!);
+    ctx.moveTo(...start!);
     for (let i = 0; i < toDraw.length; i += 2) {
         const [x1, y1, x2, y2] = [...toDraw[i], ...toDraw[i + 1]];
 
@@ -126,8 +127,8 @@ export function drawFauxCubicLoop(
 
     const start = toDraw.shift();
 
-    if (close) toDraw.push(start);
-    ctx.moveTo(...start);
+    if (close) toDraw.push(start!);
+    ctx.moveTo(...start!);
     for (let i = 0; i < toDraw.length; i++) {
         const [x1, y1, x2, y2, x3, y3] = [
             ...toDraw[i],

@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-        "module": "UMD",
+        "module": "commonjs",
         "outDir": "./dist",
-        "target": "ES2018",
+        "target": "es5",
         "jsx": "react",
         "importHelpers": false,
         "moduleResolution": "node",
@@ -12,8 +12,9 @@
         "experimentalDecorators": true,
         "lib": ["ESNext", "ES2019", "DOM"],
         "declaration": true,
-        "declarationDir": "types"
+        "declarationDir": "types",
+        "strict": true
     },
-    "typeAcquisition": { "enable": true },
-    "include": ["src"]
+    "include": ["src"],
+    "exclude": ["node_modules"]
 }
