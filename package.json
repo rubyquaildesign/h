@@ -1,7 +1,7 @@
 {
     "name": "@rupertofly/h",
     "sideEffects": false,
-    "version": "0.9.1",
+    "version": "0.9.2",
     "description": "A set of useful functions and types for me",
     "main": "dist/index.js",
     "repository": "git@github.com:Rupertofly/h.git",
