@@ -1,9 +1,13 @@
 {
     "name": "@rupertofly/h",
     "sideEffects": false,
-    "version": "0.9.3",
+    "version": "0.9.4",
     "description": "A set of useful functions and types for me",
     "main": "dist/index.js",
+    "files": [
+        "dist/**/*",
+        "types/**/*"
+    ],
     "repository": "git@github.com:Rupertofly/h.git",
     "author": "Ruby Quail <ruby@rubyquail.design>",
     "license": "MIT",
@@ -13,11 +17,13 @@
         "singleQuote": true,
         "tabWidth": 4
     },
-    "types": "./types/index.d.ts",
+    "types": "types/index.d.ts",
     "scripts": {
         "build": "tsc",
         "watch": "tsc -w",
-        "test": "ts-node ./test/tests.ts | tap-nyan"
+        "test": "ts-node ./test/tests.ts | tap-nyan",
+        "prepare": "yarn build",
+        "prepublishOnly": "yarn test"
     },
     "devDependencies": {
         "@types/b-spline": "^2.0.0",
