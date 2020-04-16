@@ -156,5 +156,5 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-types
+types/
 # End of https://www.gitignore.io/api/macos

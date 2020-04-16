@@ -9,3 +9,5 @@ export declare function drawShape(shape: Shape, ctx: CanvasRenderingContext2D): 
 export declare function drawDot(point: Pt, radius: number, ctx: CanvasRenderingContext2D): void;
 export declare function drawFauxQuadLoop(loop: Loop, close: boolean, ctx?: P.Path): string;
 export declare function drawFauxQuadLoop(loop: Loop, close: boolean, ctx: CanvasRenderingContext2D): void;
+export declare function drawFauxCubicLoop(loop: Loop, close: boolean, ctx?: P.Path): string;
+export declare function drawFauxCubicLoop(loop: Loop, close: boolean, ctx: CanvasRenderingContext2D): void;
