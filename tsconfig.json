@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "outDir": "./dist",
+        "outDir": "dist",
+        "rootDir": "src",
         "target": "es5",
         "jsx": "react",
         "importHelpers": false,
         "moduleResolution": "node",
         "esModuleInterop": true,
-        "sourceMap": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "lib": ["ESNext", "ES2019", "DOM"],
@@ -16,5 +16,5 @@
         "strict": true
     },
     "include": ["src"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "dist"]
 }

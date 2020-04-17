@@ -1,3 +1,4 @@
+import './maths';
 export * from './maths';
 export * from './drawing';
 export * from './spline';

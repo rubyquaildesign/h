@@ -4,10 +4,6 @@
     "version": "0.9.6",
     "description": "A set of useful functions and types for me",
     "main": "dist/index.js",
-    "files": [
-        "dist/**/*",
-        "types/**/*"
-    ],
     "repository": "git@github.com:Rupertofly/h.git",
     "author": "Ruby Quail <ruby@rubyquail.design>",
     "license": "MIT",
@@ -22,13 +18,14 @@
         "build": "tsc",
         "watch": "tsc -w",
         "test": "ts-node ./test/tests.ts | tap-nyan",
-        "prepare": "yarn build",
+        "prepublish": "yarn build",
         "prepublishOnly": "yarn test"
     },
     "devDependencies": {
         "@types/b-spline": "^2.0.0",
         "@types/d3-path": "^1.0.8",
         "@types/jsdom": "^16.2.1",
+        "@types/node": "^13.11.1",
         "@types/tape": "^4.2.34",
         "@typescript-eslint/eslint-plugin": "^2.20.0",
         "@typescript-eslint/parser": "^2.20.0",
@@ -41,6 +38,7 @@
         "prettier": "^2.0.4",
         "tap-nyan": "^1.1.0",
         "tape": "^4.13.2",
+        "ts-node": "^8.8.2",
         "typescript": "^3.8.3"
     },
     "dependencies": {
