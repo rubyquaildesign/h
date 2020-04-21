@@ -8,12 +8,14 @@ import resolve from '@rollup/plugin-node-resolve';
 const config = {
     input: 'src/index.ts',
     output: {
-        file: 'h.umd.js',
+        file: 'dist/index.umd.js',
         format: 'umd',
         name: 'h',
     },
     plugins: [
-        typescript({}),
+        typescript({
+            tsconfig: './rollup.tsconfig.json',
+        }),
         commonjs({ extensions: ['.js', '.ts'] }),
         resolve(),
     ],
