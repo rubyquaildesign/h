@@ -20,7 +20,7 @@ export function* spline(
     const toDraw = loop.slice(0);
 
     if (close) {
-        const endSize = Math.min(len, flr(degree / 2));
+        const endSize = Math.min(len, Math.round(degree / 2));
         const lookBack = toDraw.slice(len - endSize, len);
         const lookFwrd = toDraw.slice(0, endSize);
 
