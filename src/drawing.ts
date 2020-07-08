@@ -1,4 +1,3 @@
-import { Line, Loop, Shape, Pt, Extent } from './types';
 import * as M from './maths';
 import * as P from 'd3-path';
 type Drawable = P.Path | CanvasRenderingContext2D;
@@ -113,23 +112,13 @@ export function drawFauxCubicLoop(
 ) {
     const toDraw = loop.slice();
     const inputLength = toDraw.length;
-    const canDrawOpen = (inputLength - 1) % 3 === 0;
-    const canDrawClosed = inputLength % 3 === 0;
-
-    if (!canDrawOpen && !canDrawClosed)
-        throw new Error(`incorrect number of input points`);
-    if (close && !canDrawClosed)
-        throw new Error(
-            `incorrect number of input points, needs 2 more points`
-        );
-    if (!close && !canDrawOpen)
-        throw new Error(`incorrect number of input points, needs 1 more point`);
-
     const start = toDraw.shift();
 
     if (close) toDraw.push(start!);
     ctx.moveTo(...start!);
-    for (let i = 0; i < toDraw.length; i++) {
+    let lasti = 0;
+
+    for (let i = 0; i < inputLength - 2; i++) {
         const [x1, y1, x2, y2, x3, y3] = [
             ...toDraw[i],
             ...toDraw[i + 1],
@@ -137,6 +126,20 @@ export function drawFauxCubicLoop(
         ];
 
         ctx.bezierCurveTo(x1, y1, x2, y2, x3, y3);
+        lasti = i + 3;
+    }
+    switch (inputLength - lasti) {
+        case 1:
+            ctx.lineTo(...toDraw[lasti]);
+            break;
+        case 2:
+            const [x1, y1] = toDraw[lasti];
+            const [x2, y2] = toDraw[lasti + 1];
+
+            ctx.quadraticCurveTo(x1, y1, x2, y2);
+            break;
+        default:
+            break;
     }
     if (!isCtx(ctx)) return ctx.toString();
 }

@@ -1,4 +1,3 @@
-import { Line, Loop, Shape, Pt } from './types';
 import * as P from 'd3-path';
 export declare function drawLine(line: Line, ctx?: P.Path): string;
 export declare function drawLine(line: Line, ctx: CanvasRenderingContext2D): void;
