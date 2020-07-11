@@ -13,6 +13,10 @@
         "singleQuote": true,
         "tabWidth": 4
     },
+    "files": [
+        "dist",
+        "types"
+    ],
     "types": "types/index.d.ts",
     "scripts": {
         "build": "tsc",
