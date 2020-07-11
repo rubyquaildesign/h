@@ -3,6 +3,7 @@
         "module": "commonjs",
         "outDir": "dist",
         "rootDir": "src",
+        "baseUrl": "src",
         "target": "es5",
         "jsx": "react",
         "importHelpers": false,
