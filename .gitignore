@@ -82,7 +82,8 @@ typings/
 
 # rollup.js default build output
 dist/
-types/
+types
+types/*
 test/.parcel-*
 # Uncomment the public line if your project uses Gatsby
 # https://nextjs.org/blog/next-9-1#public-directory-support
@@ -159,3 +160,4 @@ Temporary Items
 .apdisk
 types/
 # End of https://www.gitignore.io/api/macos
+types/index.d.ts
