@@ -8,24 +8,24 @@ import interpolate from 'b-spline';
  * @param outputResolution - resolution of the output loop
  */
 export function* spline(
-    loop: Loop,
-    degree: number,
-    close: boolean,
-    outputResolution?: number
+  loop: Loop,
+  degree: number,
+  close: boolean,
+  outputResolution?: number
 ) {
-    const resolution = outputResolution || loop.length;
-    const len = loop.length;
-    const toDraw = loop.slice(0);
+  const resolution = outputResolution || loop.length;
+  const len = loop.length;
+  const toDraw = loop.slice(0);
 
-    if (close) {
-        const endSize = Math.min(len, degree + 1);
-        const lookFwrd = toDraw.slice(0, endSize);
+  if (close) {
+    const endSize = Math.min(len, degree + 1);
+    const lookFwrd = toDraw.slice(0, endSize);
 
-        toDraw.push(...lookFwrd);
-    }
-    for (let index = 0; index < resolution; index++) {
-        const t = index / resolution;
+    toDraw.push(...lookFwrd);
+  }
+  for (let index = 0; index < resolution; index++) {
+    const t = index / resolution;
 
-        yield interpolate(t, degree, toDraw);
-    }
+    yield interpolate(t, degree, toDraw);
+  }
 }
