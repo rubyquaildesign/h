@@ -1,11 +1,24 @@
 import { sub, len, TAU, PI } from './maths';
 import { Path } from 'd3-path';
+import { table } from 'console';
 const atan2 = Math.atan2;
 
 function propPoint([sx, sy]: Pt, seg: number, len: number, [dx, dy]: Pt): Pt {
   const factor = seg / len;
 
   return [sx - dx * factor, sy - dy * factor];
+}
+function infoSort(lastPt: Pt, thisPt: Pt, nextPt: Pt, rad: number) {
+  const abs = Math.abs;
+  const minL = Math.min(abs(len(lastPt, thisPt)), abs(len(thisPt, nextPt))) / 2;
+  const intAng =
+    (Math.atan2(thisPt[1] - lastPt[1], thisPt[0] - lastPt[0]) -
+      Math.atan2(thisPt[1] - nextPt[1], thisPt[0] - nextPt[0])) /
+    2;
+  const r = rad;
+  const seg = r / Math.abs(Math.tan(intAng));
+
+  return { seg, minL, r, intAng };
 }
 function roundedCorner(
   pre: Pt,
@@ -15,16 +28,15 @@ function roundedCorner(
   ctx: CanvasRenderingContext2D | Path,
   ac: boolean
 ) {
-  const PPre = sub(p, pre);
-  const PPst = sub(p, pst);
-  const intAng =
-    (Math.atan2(PPre[1], PPre[0]) - Math.atan2(PPst[1], PPst[0])) / 2;
-  const tan = Math.abs(Math.tan(intAng));
+  const PPre = sub(pre, p);
+  const PPst = sub(pst, p);
+  const intAng = Math.atan2(PPre[1], PPre[0]) - Math.atan2(PPst[1], PPst[0]);
+  const tan = Math.abs(Math.tan(intAng / 2));
   let rad = r;
   let seg = r / tan;
   const PPreLen = len([0, 0], PPre);
   const PPstLen = len([0, 0], PPst);
-  const minLen = Math.min(PPreLen, PPstLen) / 3;
+  const minLen = Math.min(PPreLen, PPstLen) / 2;
 
   if (seg > minLen) {
     seg = minLen;
@@ -64,21 +76,17 @@ function newRd(
   rad: number,
   ctx: CanvasRenderingContext2D | Path
 ) {
-  const abs = Math.abs;
-  const minL = Math.min(abs(len(lastPt, thisPt)), abs(len(thisPt, nextPt))) / 3;
-  const intAng =
-    (Math.atan2(thisPt[1] - lastPt[1], thisPt[0] - lastPt[0]) -
-      Math.atan2(thisPt[1] - nextPt[1], thisPt[0] - nextPt[0])) /
-    2;
-  let r = rad;
-  let seg = r / Math.abs(Math.tan(intAng));
+  const is = infoSort(lastPt, thisPt, nextPt, rad);
+  let { seg, r } = is;
+  const { minL, intAng } = is;
 
-  if (seg < minL) {
+  if (seg > minL) {
     seg = minL;
     r = seg * Math.abs(Math.tan(intAng));
   }
   ctx.arcTo(thisPt[0], thisPt[1], nextPt[0], nextPt[1], r);
 }
+
 export function drawRoundLoop(
   lp: Loop,
   rad: number,
@@ -100,11 +108,20 @@ export function drawRoundLoop(
   lp.map((pt, i, arr) => {
     if (i === 0) return;
     const l = arr.length;
-    const preI = i - 1;
+    const preI = (l + i - 1) % l;
     const pstI = (i + 1) % l;
 
     newRd(arr[preI], pt, arr[pstI], rad, ctx);
   });
-  newRd(lp[lp.length - 1], lp[0], [sX, sY], rad, ctx);
+  // newRd(lp[lp.length - 1], lp[0], [sX, sY], rad, ctx);
+  const is = infoSort(lp[lp.length - 1], lp[0], lp[1], rad);
+  let { seg, r } = is;
+  const { minL, intAng } = is;
+
+  if (seg > minL) {
+    seg = minL;
+    r = seg * Math.abs(Math.tan(intAng));
+  }
+  ctx.arcTo(lp[0][0], lp[0][1], sX, sY, r);
   ctx.closePath();
 }
