@@ -16,20 +16,28 @@ export function drawLine(line: Line, ctx: Drawable = P.path()) {
     }
 }
 
-export function drawLoop(loop: Loop, close: boolean, ctx?: P.Path): string;
 export function drawLoop(
-    loop: Loop,
+    loop: Loop | Iterable<Pt>,
+    close: boolean,
+    ctx?: P.Path
+): string;
+export function drawLoop(
+    loop: Loop | Iterable<Pt>,
     close: boolean,
     ctx: CanvasRenderingContext2D
 ): void;
-export function drawLoop(loop: Loop, close: boolean, ctx: Drawable = P.path()) {
-    if (loop.length < 1) throw new Error();
-    const toDraw = loop.slice();
-    const start = toDraw.shift();
+export function drawLoop(
+    loop: Loop | Iterable<Pt>,
+    close: boolean,
+    ctx: Drawable = P.path()
+) {
+    let count = 0;
 
-    ctx.moveTo(...start!);
-
-    toDraw.forEach((pt) => ctx.lineTo(...pt));
+    for (const point of loop) {
+        if (count < 1) ctx.moveTo(...point);
+        else ctx.lineTo(...point);
+        count++;
+    }
     if (close) ctx.closePath();
     if (!isCtx(ctx)) return ctx.toString();
 
