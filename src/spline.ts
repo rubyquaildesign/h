@@ -16,12 +16,12 @@ export function* spline(
   const resolution = outputResolution || loop.length;
   const len = loop.length;
   let toDraw = loop.slice(0);
-  let knots = range(len - (degree + 1));
+  let knots: number[] = new Array(degree + 1).fill(0);
 
-  knots.push(...new Array<number>(degree + 1).fill(knots.length));
-  knots.unshift(...new Array<number>(degree + 1).fill(0));
+  knots.push(...range(0, len - (degree + 1)).map((d) => d + 1));
+  knots.push(...new Array(degree + 1).fill(len - degree));
   if (close) {
-    toDraw.push(...toDraw.slice(0, degree + 1));
+    toDraw.push(...toDraw.slice(0, degree));
     knots = range(toDraw.length + (degree + 1));
   }
   for (let index = 0; index < resolution; index++) {
@@ -29,4 +29,5 @@ export function* spline(
 
     yield interpolate(t, degree, toDraw, knots);
   }
+  if (!close) yield toDraw[toDraw.length - 1];
 }
