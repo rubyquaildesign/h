@@ -74,14 +74,14 @@ test('spline', (t) => {
     [-1, -1],
     [1, -1],
     [2, 0],
-    [1, 1],
+    [10, 10],
     [0.5, 0],
     [-1, 1],
   ] as [number, number][];
 
   const pth = path();
 
-  const op = spline(points, 2, true, 12);
+  const op = spline(points, 2, true, 64);
 
   drawLoop(op, true, pth);
   console.log(pth.toString());
