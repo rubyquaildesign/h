@@ -9,3 +9,4 @@ export * from './anim/Animator';
 export * from './anim/Animation';
 export * from './anim/Controller';
 export * from './djikstra';
+export * from './getPolygonMinRadius';

@@ -1,7 +1,7 @@
 {
   "name": "@rupertofly/h",
   "sideEffects": false,
-  "version": "1.2.0",
+  "version": "3.0.0",
   "description": "A set of useful functions and types for me",
   "main": "dist/index.js",
   "repository": "git@github.com:Rupertofly/h.git",
@@ -33,7 +33,9 @@
     "@rollup/plugin-typescript": "^4.1.1",
     "@types/b-spline": "^2.0.0",
     "@types/d3-delaunay": "^5.3.0",
+    "@types/d3-array": "^2.0.0",
     "@types/d3-path": "^1.0.8",
+    "@types/d3-polygon": "^2.0.0",
     "@types/jsdom": "^16.2.1",
     "@types/node": "^13.11.1",
     "@types/rollup": "^0.54.0",
@@ -56,8 +58,10 @@
   },
   "dependencies": {
     "b-spline": "^2.0.1",
+    "d3-array": "^2.5.1",
     "d3-path": "^1.0.9",
     "tinyqueue": "^2.0.3",
+    "d3-polygon": "^2.0.0",
     "tslib": "^1.11.1"
   }
 }
