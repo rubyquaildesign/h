@@ -1,5 +1,4 @@
-///
-// Polar form
+import { range } from 'd3-array';
 /*
 polar form beziers are represented as forms from a to be, eg
 deg2 = (a,a),(a,b),(b,b).
@@ -73,3 +72,21 @@ console.log(splineSegToBezier(0, 1, 2, 3, testPoints));
 console.log(splineSegToBezier(1, 2, 3, 4, testPoints));
 console.log(splineSegToBezier(2, 3, 4, 5, testPoints));
 console.log(splineSegToBezier(3, 4, 5, 6, testPoints));
+export function splineToBezier(pts: Loop, close: boolean = false): Loop {
+  if (pts.length < 4) throw new Error('too few points for spline');
+  let cp = [...pts];
+  if (close) {
+    cp.push(...pts.slice(0, 3));
+  } else {
+    let n = pts[pts.length - 1];
+    cp.unshift(pts[0], pts[0]);
+    cp.push(n, n);
+  }
+  let output: (BezierCurve | Pt[])[] = [];
+  for (let i = 0; i < cp.length - 4; i++) {
+    const bz = splineSegToBezier(i, i + 1, i + 2, i + 3, cp);
+    if (i === 0) output.push(bz);
+    else output.push(bz.slice(1, 4));
+  }
+  return output.flat();
+}

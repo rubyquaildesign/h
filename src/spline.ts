@@ -1,6 +1,8 @@
 import interpolate from 'b-spline';
 import './types';
 import { range } from 'd3-array';
+import { splineToBezier } from 'bohm';
+import { catmulToBezier, simplifySpline } from 'catmull';
 /**
  * Creates and iterator walking through the spline of a given loop outputing the points of the new loop
  * @param loop - a loop of Pts to extract a spline from
@@ -31,4 +33,16 @@ export function* spline(
     yield interpolate(t, degree, toDraw, knots);
   }
   if (!close) yield toDraw[toDraw.length - 1];
+}
+export function bezierSpline(
+  loop: Loop,
+  degree: number = 3,
+  close: boolean = false
+): Loop {
+  if (degree === 3) {
+    return splineToBezier(loop, close);
+  } else {
+    let cm = simplifySpline(loop, degree, close);
+    return catmulToBezier(cm);
+  }
 }

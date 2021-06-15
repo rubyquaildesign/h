@@ -10,3 +10,5 @@ export * from './anim/Animation';
 export * from './anim/Controller';
 export * from './djikstra';
 export * from './getPolygonMinRadius';
+export * from './bohm';
+export * from './catmull';

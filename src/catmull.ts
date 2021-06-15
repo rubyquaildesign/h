@@ -55,10 +55,12 @@ function bezierCurve(p1: Pt, p2: Pt, p3: Pt, p4: Pt): BezierCurve {
   ];
 }
 export function catmulToBezier(pts: Loop): Loop {
-  let output: BezierCurve[] = [];
+  let output: Array<Pt[]> = [];
   for (let i = 0; i < pts.length - 4; i++) {
     let [a, b, c, d] = pts.slice(i, i + 4);
-    output.push(bezierCurve(a, b, c, d));
+    let cv = bezierCurve(a, b, c, d);
+    if (i===0)
+    output.push(cv); else output.push(cv.slice(1,4))
   }
   return output.flat();
 }
