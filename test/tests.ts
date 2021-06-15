@@ -1,6 +1,5 @@
 import test from 'tape';
 import { djikstraPath, flr, spline } from '../src/index';
-import DOM from 'jsdom';
 import Del, { Delaunay } from 'd3-delaunay';
 import { path } from 'd3-path';
 import { drawLine, drawFauxQuadLoop, drawLoop } from '../src/drawing';
@@ -70,16 +69,17 @@ test('quadLine', (t) => {
   t.end();
 });
 test('djikstra', (t) => {
-    t.doesNotThrow(() => {
-        type pt = [number, number];
-        let pts: pt[] = new Array(32)
-            .fill(0)
-            .map(() => [Math.random(), Math.random()]);
-        let del = Delaunay.from(pts);
-        let route = djikstraPath(0, 1, (a) => del.neighbors(a));
+  t.doesNotThrow(() => {
+    type pt = [number, number];
+    let pts: pt[] = new Array(32)
+      .fill(0)
+      .map(() => [Math.random(), Math.random()]);
+    let del = Delaunay.from(pts);
+    let route = djikstraPath(0, 1, (a) => del.neighbors(a));
 
-        t.comment(route.toString());
-    });
+    t.comment(route.toString());
+  });
+  t.end();
 });
 test('spline', (t) => {
   const points = [
@@ -98,4 +98,4 @@ test('spline', (t) => {
   drawLoop(op, true, pth);
   console.log(pth.toString());
   t.end();
-})
+});

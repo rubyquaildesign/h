@@ -3,6 +3,16 @@ import TinyQueue from 'tinyqueue';
 export type DistanceFunc<T = number> = (from: T, to: T) => number;
 export type NeighbourFunc<T = number> = (here: T) => Iterable<T>;
 
+
+/**
+ * Djikstras path returns the djikstra's path between two nodes
+ * @template T node form
+ * @param start starting node
+ * @param end ending node
+ * @param getNeighbours function that returns neighbours for a node
+ * @param [getDistance] function that gets the distance between two nodes, defaults to const 1
+ * @returns path
+ */
 export function djikstraPath<T = number>(
   start: T,
   end: T,
