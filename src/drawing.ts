@@ -61,7 +61,14 @@ export function drawBezierLoop(
   for (let i = 0; i <= loop.length - 3; i += 4) {
     if (i === 0) ctx.moveTo(...loop[0]);
     else ctx.lineTo(...loop[i]);
-    ctx.bezierCurveTo(...loop[i + 1], ...loop[i + 2], ...loop[i + 3]);
+    ctx.bezierCurveTo(
+      loop[i + 1][0],
+      loop[i + 1][1],
+      loop[i + 2][0],
+      loop[i + 2][1],
+      loop[i + 3][0],
+      loop[i + 3][1]
+    );
   }
   if (close) ctx.closePath();
   if (!isCtx(ctx)) return ctx.toString();
