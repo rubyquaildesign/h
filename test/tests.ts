@@ -1,8 +1,15 @@
 import test from 'tape';
-import { djikstraPath, flr, spline } from '../src/index';
+import { bezierSpline, djikstraPath, flr, spline } from '../src/index';
 import Del, { Delaunay } from 'd3-delaunay';
 import { path } from 'd3-path';
-import { drawLine, drawFauxQuadLoop, drawLoop } from '../src/drawing';
+import {
+  drawLine,
+  drawFauxQuadLoop,
+  drawLoop,
+  drawBezierLoop,
+} from '../src/drawing';
+import { range } from 'd3-array';
+import { writeSvg } from './svgTest';
 
 test('test Maths', (t) => {
   t.plan(3);
@@ -96,6 +103,32 @@ test('spline', (t) => {
   const op = spline(points, 2, true, 64);
 
   drawLoop(op, true, pth);
-  console.log(pth.toString());
+  // console.log(pth.toString());
+  t.end();
+});
+test('fancy spline', (t) => {
+  const points = [
+    [-2, 2],
+    [-1.5, -2],
+    [-1, 2],
+    [-0.5, -2],
+    [0, 2],
+    [0.5, -2],
+    [1, 2],
+    [1.5, -2],
+    [2, 2],
+    [2, 0],
+  ] as Pt[];
+
+  const pth = path();
+  let op: Loop;
+  t.doesNotThrow(() => {
+    op = bezierSpline(points, 3, false);
+  });
+  // t.comment(JSON.stringify(op.map((p) => p.map((n) => n.toFixed(2)))));
+  drawBezierLoop(op, false, pth);
+  // drawLoop(op, false, pth);
+  // writeSvg(points, pth.toString(), op);
+  // console.log(pth.toString());
   t.end();
 });

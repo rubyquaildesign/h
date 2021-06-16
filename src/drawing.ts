@@ -58,9 +58,10 @@ export function drawBezierLoop(
   close: boolean,
   ctx: Drawable = P.path()
 ) {
-  for (let i = 0; i < loop.length - 4; i += 3) {
-    if (i < 1) ctx.moveTo(...loop[0]);
-    else ctx.bezierCurveTo(...loop[i], ...loop[i + 1], ...loop[i + 2]);
+  for (let i = 0; i <= loop.length - 3; i += 4) {
+    if (i === 0) ctx.moveTo(...loop[0]);
+    else ctx.lineTo(...loop[i]);
+    ctx.bezierCurveTo(...loop[i + 1], ...loop[i + 2], ...loop[i + 3]);
   }
   if (close) ctx.closePath();
   if (!isCtx(ctx)) return ctx.toString();

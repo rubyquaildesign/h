@@ -6,5 +6,5 @@ declare global {
   type Shape = Loop[];
   type Extent = [number, number, number, number];
   type XYPt = { x: number; y: number };
-  type BezierCurve = [start: Pt, c1: Pt, c2: Pt, end: Pt];
+  type BezierCurve = [Pt, Pt, Pt, Pt];
 }
