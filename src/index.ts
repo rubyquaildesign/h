@@ -12,3 +12,4 @@ export * from './djikstra';
 export * from './getPolygonMinRadius';
 export * from './bohm';
 export * from './catmull';
+export * from './vec';
