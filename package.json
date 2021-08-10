@@ -8,6 +8,15 @@
   "author": "Ruby Quail <ruby@rubyquail.design>",
   "license": "MIT",
   "private": false,
+  "xo": {
+    "space": 2,
+    "prettier": true,
+    "rules": {
+      "unicorn/filename-case": 0,
+      "unicorn/no-array-reduce": 0,
+      "@typescript-eslint/no-unused-vars": 1
+    }
+  },
   "prettier": {
     "useTabs": false,
     "singleQuote": true,
@@ -40,15 +49,8 @@
     "@types/node": "^13.11.1",
     "@types/rollup": "^0.54.0",
     "@types/tape": "^4.2.34",
-    "@typescript-eslint/eslint-plugin": "^2.20.0",
-    "@typescript-eslint/parser": "^2.20.0",
     "d3-delaunay": "^6.0.2",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-ava": "^12.0.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-react": "^7.18.3",
-    "eslint-plugin-tsdoc": "^0.2.3",
+    "eslint-config-xo-typescript": "^0.44.0",
     "jsdom": "^16.2.2",
     "prettier": "^2.0.4",
     "rollup": "^2.6.1",
@@ -56,7 +58,7 @@
     "tape": "^4.13.2",
     "ts-node": "^10.0.0",
     "typescript": "^3.8.3",
-    "xo": "^0.44.0"
+    "xo": "0.42"
   },
   "dependencies": {
     "b-spline": "^2.0.1",

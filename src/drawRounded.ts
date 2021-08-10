@@ -1,13 +1,19 @@
-import { sub, len, TAU, PI } from './maths';
-import { Path } from 'd3-path';
-import { table } from 'console';
+import {Path} from 'd3-path';
+import {sub, len, TAU} from './maths';
+
 const atan2 = Math.atan2;
-type Pt = [number, number] | Array<number>;
-function propPoint([sx, sy]: Pt, seg: number, len: number, [dx, dy]: Pt): Pt {
-  const factor = seg / len;
+type Pt = [number, number] | number[];
+function propPoint(
+  [sx, sy]: Pt,
+  seg: number,
+  length: number,
+  [dx, dy]: Pt
+): Pt {
+  const factor = seg / length;
 
   return [sx - dx * factor, sy - dy * factor];
 }
+
 function infoSort(lastPt: Pt, thisPt: Pt, nextPt: Pt, rad: number) {
   const abs = Math.abs;
   const minL = Math.min(abs(len(lastPt, thisPt)), abs(len(thisPt, nextPt))) / 2;
@@ -18,8 +24,9 @@ function infoSort(lastPt: Pt, thisPt: Pt, nextPt: Pt, rad: number) {
   const r = rad;
   const seg = r / Math.abs(Math.tan(intAng));
 
-  return { seg, minL, r, intAng };
+  return {seg, minL, r, intAng};
 }
+
 function roundedCorner(
   pre: Pt,
   p: Pt,
@@ -34,16 +41,17 @@ function roundedCorner(
   const tan = Math.abs(Math.tan(intAng / 2));
   let rad = r;
   let seg = r / tan;
-  const PPreLen = len([0, 0], PPre);
-  const PPstLen = len([0, 0], PPst);
-  const minLen = Math.min(PPreLen, PPstLen) / 2;
+  const PPreLength = len([0, 0], PPre);
+  const PPstLength = len([0, 0], PPst);
+  const minLength = Math.min(PPreLength, PPstLength) / 2;
 
-  if (seg > minLen) {
-    seg = minLen;
-    rad = minLen / tan;
+  if (seg > minLength) {
+    seg = minLength;
+    rad = minLength / tan;
   }
-  const preCross = propPoint(p, seg, PPreLen, PPre);
-  const pstCross = propPoint(p, seg, PPstLen, PPst);
+
+  const preCross = propPoint(p, seg, PPreLength, PPre);
+  const pstCross = propPoint(p, seg, PPstLength, PPst);
 
   const dx = p[0] * 2 - preCross[0] - pstCross[0];
   const dy = p[1] * 2 - preCross[1] - pstCross[1];
@@ -61,14 +69,16 @@ function roundedCorner(
 
   if (endAng < 0) endAng = TAU + endAng;
 
-  const angLen = endAng - stAng;
+  const angLength = endAng - stAng;
 
   if (endAng < stAng) {
     endAng = TAU + endAng;
-    // angLen = -1 * angLen;
+    // AngLen = -1 * angLen;
   }
+
   ctx.arc(cx, cy, rad, stAng, endAng, ac);
 }
+
 function newRd(
   lastPt: Pt,
   thisPt: Pt,
@@ -77,13 +87,14 @@ function newRd(
   ctx: CanvasRenderingContext2D | Path
 ) {
   const is = infoSort(lastPt, thisPt, nextPt, rad);
-  let { seg, r } = is;
-  const { minL, intAng } = is;
+  let {seg, r} = is;
+  const {minL, intAng} = is;
 
   if (seg > minL) {
     seg = minL;
     r = seg * Math.abs(Math.tan(intAng));
   }
+
   ctx.arcTo(thisPt[0], thisPt[1], nextPt[0], nextPt[1], r);
 }
 
@@ -92,9 +103,9 @@ export function drawRoundLoop(
   rad: number,
   ctx: CanvasRenderingContext2D | Path
 ): void {
-  const loopTurning = lp.reduce((sum, [ax, ay], i, arr) => {
-    const l = arr.length;
-    const [bx, by] = arr[(i + 1) % l];
+  const loopTurning = lp.reduce((sum, [ax, ay], i, array) => {
+    const l = array.length;
+    const [bx, by] = array[(i + 1) % l];
 
     return sum + (bx - ax) * (by + ay);
   }, 0);
@@ -105,23 +116,25 @@ export function drawRoundLoop(
   const sY = lp[0][1] + (xPerY * dX) / 2;
 
   ctx.moveTo(sX, sY);
-  lp.map((pt, i, arr) => {
+  lp.map((pt, i, array) => {
     if (i === 0) return;
-    const l = arr.length;
+    const l = array.length;
     const preI = (l + i - 1) % l;
     const pstI = (i + 1) % l;
 
-    newRd(arr[preI], pt, arr[pstI], rad, ctx);
+    newRd(array[preI], pt, array[pstI], rad, ctx);
+    return null;
   });
-  // newRd(lp[lp.length - 1], lp[0], [sX, sY], rad, ctx);
+  // NewRd(lp[lp.length - 1], lp[0], [sX, sY], rad, ctx);
   const is = infoSort(lp[lp.length - 1], lp[0], lp[1], rad);
-  let { seg, r } = is;
-  const { minL, intAng } = is;
+  let {seg, r} = is;
+  const {minL, intAng} = is;
 
   if (seg > minL) {
     seg = minL;
     r = seg * Math.abs(Math.tan(intAng));
   }
+
   ctx.arcTo(lp[0][0], lp[0][1], sX, sY, r);
   ctx.closePath();
 }

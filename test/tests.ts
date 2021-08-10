@@ -1,15 +1,15 @@
 import test from 'tape';
-import { bezierSpline, djikstraPath, flr, spline } from '../src/index';
-import Del, { Delaunay } from 'd3-delaunay';
-import { path } from 'd3-path';
+import Del, {Delaunay} from 'd3-delaunay';
+import {path} from 'd3-path';
+import {range} from 'd3-array';
 import {
   drawLine,
   drawFauxQuadLoop,
   drawLoop,
   drawBezierLoop,
 } from '../src/drawing';
-import { range } from 'd3-array';
-import { writeSvg } from './svgTest';
+import {bezierSpline, djikstraPath, flr, spline} from '../src/index';
+import {writeSvg} from './svgTest';
 
 test('test Maths', (t) => {
   t.plan(3);
@@ -24,7 +24,7 @@ test('line', (t) => {
       [1, 1],
     ]),
     'M0,1L1,1',
-    'draw line'
+    'draw line',
   );
   t.end();
 });
@@ -37,10 +37,10 @@ test('quadLine', (t) => {
         [1, 1],
         [0, 1],
       ],
-      true
+      true,
     ),
     'M0,0Q1,0,1,1Q0,1,0,0',
-    'draw quad'
+    'draw quad',
   );
   t.throws(() => {
     drawFauxQuadLoop(
@@ -49,7 +49,7 @@ test('quadLine', (t) => {
         [1, 0],
         [1, 1],
       ],
-      true
+      true,
     );
   });
   t.throws(() => {
@@ -60,7 +60,7 @@ test('quadLine', (t) => {
         [1, 1],
         [0, 1],
       ],
-      false
+      false,
     );
   });
   t.doesNotThrow(() => {
@@ -70,7 +70,7 @@ test('quadLine', (t) => {
         [1, 0],
         [1, 1],
       ],
-      false
+      false,
     );
   });
   t.end();
@@ -78,11 +78,11 @@ test('quadLine', (t) => {
 test('djikstra', (t) => {
   t.doesNotThrow(() => {
     type pt = [number, number];
-    let pts: pt[] = new Array(32)
+    const pts: pt[] = Array.from({length: 32})
       .fill(0)
       .map(() => [Math.random(), Math.random()]);
-    let del = Delaunay.from(pts);
-    let route = djikstraPath(0, 1, (a) => del.neighbors(a));
+    const del = Delaunay.from(pts);
+    const route = djikstraPath(0, 1, (a) => del.neighbors(a));
 
     t.comment(route.toString());
   });
@@ -96,14 +96,14 @@ test('spline', (t) => {
     [10, 10],
     [0.5, 0],
     [-1, 1],
-  ] as [number, number][];
+  ] as Array<[number, number]>;
 
   const pth = path();
 
   const op = spline(points, 2, true, 64);
 
   drawLoop(op, true, pth);
-  // console.log(pth.toString());
+  // Console.log(pth.toString());
   t.end();
 });
 test('fancy spline', (t) => {
@@ -125,9 +125,9 @@ test('fancy spline', (t) => {
   t.doesNotThrow(() => {
     op = bezierSpline(points, 3, false);
   });
-  // t.comment(JSON.stringify(op.map((p) => p.map((n) => n.toFixed(2)))));
+  // T.comment(JSON.stringify(op.map((p) => p.map((n) => n.toFixed(2)))));
   drawBezierLoop(op, false, pth);
-  // drawLoop(op, false, pth);
+  // DrawLoop(op, false, pth);
   // writeSvg(points, pth.toString(), op);
   // console.log(pth.toString());
   t.end();

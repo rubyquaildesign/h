@@ -6,10 +6,12 @@ export class Animation<T> {
   get drawnFrames() {
     return this._drawnFrames;
   }
+
   private _delay = 0;
   get delay() {
     return this._delay;
   }
+
   readonly loop: boolean;
   readonly stay: boolean;
   interpolator: (t: number) => number = (t) => t;
@@ -17,6 +19,7 @@ export class Animation<T> {
   get isDone() {
     return this._done;
   }
+
   drawFunc: Animation.StateDrawFunction<T>;
   constructor({
     drawFunc,
@@ -36,6 +39,7 @@ export class Animation<T> {
     this.loop = loop ?? false;
     this.stay = stay ?? true;
   }
+
   // TODO Drawing State
   reset(): Animation<T> {
     this._drawnFrames = 0;
@@ -43,23 +47,25 @@ export class Animation<T> {
 
     return this;
   }
-  step(): Animation.stepInfo | void {
-    if (this._done && !this.stay) return { done: this._done };
-    if (this._delay > 0) {
-      this._delay = this._delay - 1;
 
-      return { done: this._done, delay: true, delayLeft: this._delay };
+  step(): Animation.stepInfo | void {
+    if (this._done && !this.stay) return {done: this._done};
+    if (this._delay > 0) {
+      this._delay -= 1;
+
+      return {done: this._done, delay: true, delayLeft: this._delay};
     }
+
     let rawT = this._drawnFrames / this.maxFrames;
 
     rawT = rawT > 1 ? 1 : rawT;
-    // run
+    // Run
     this.drawFunc(
       this.interpolator(rawT),
       this._drawnFrames,
       this.ref,
       this.maxFrames,
-      rawT
+      rawT,
     );
     if (!this._done) this._drawnFrames++;
     if (this._drawnFrames >= this.maxFrames) {
@@ -68,6 +74,7 @@ export class Animation<T> {
 
         return;
       }
+
       this._done = true;
     }
   }
@@ -79,7 +86,7 @@ export namespace Animation {
     currentF: number,
     ref: T,
     maxF: number,
-    rawT: number
+    rawT: number,
   ) => any;
   export type stepInfo = {
     done: boolean;
@@ -87,7 +94,7 @@ export namespace Animation {
     delayLeft?: number;
   };
   export type ConstuctorOps<T> = {
-    drawFunc: Animation.StateDrawFunction<T>;
+    drawFunc: StateDrawFunction<T>;
     ref: NonNullable<T>;
     maxFrames: number;
     delay?: number;
