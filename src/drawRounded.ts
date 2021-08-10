@@ -2,7 +2,7 @@ import { sub, len, TAU, PI } from './maths';
 import { Path } from 'd3-path';
 import { table } from 'console';
 const atan2 = Math.atan2;
-
+type Pt = [number, number] | Array<number>;
 function propPoint([sx, sy]: Pt, seg: number, len: number, [dx, dy]: Pt): Pt {
   const factor = seg / len;
 

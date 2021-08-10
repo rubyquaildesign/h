@@ -1,6 +1,6 @@
 export {};
 declare global {
-  type Pt = [number, number];
+  type Pt = [number, number] | Array<number>;
   type Loop = Pt[];
   type Line = [Pt, Pt];
   type Shape = Loop[];

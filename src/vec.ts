@@ -4,7 +4,7 @@ const { sin, cos, tan, atan2, random } = Math;
 
 type point = [number, number];
 
-type Vp = point | Array<number>;
+export type Vp = point | Array<number>;
 // @ts-ignore
 export class Vec extends Array<number> implements point {
   get x() {
@@ -115,6 +115,9 @@ export class Vec extends Array<number> implements point {
     return atan2(this.x, this.y);
   }
   angle = this.hAngle;
+  absAngle() {
+    return PI + this.hAngle();
+  }
   rotate(amt: number) {
     let { x, y } = this;
     let nx = x * cos(amt) - y * sin(amt);
@@ -155,5 +158,10 @@ export class Vec extends Array<number> implements point {
       this.y = 0;
     } else this.divScaler(length);
     return this;
+  }
+  projectOn(inp: Vp) {
+    const [ix, iy] = inp;
+    const { x, y } = this;
+    let coeff = ((x*ix)+(y*iy))/((ix*ix)+(iy*iy))
   }
 }
