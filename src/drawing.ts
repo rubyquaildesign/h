@@ -1,6 +1,7 @@
 import * as M from './maths';
 import * as P from 'd3-path';
 type Drawable = P.Path | CanvasRenderingContext2D;
+type TDPT = [number, number];
 function isCtx(ctx: Drawable): ctx is CanvasRenderingContext2D {
   if (typeof window === 'undefined') return false;
 
@@ -9,8 +10,8 @@ function isCtx(ctx: Drawable): ctx is CanvasRenderingContext2D {
 export function drawLine(line: Line, ctx?: P.Path): string;
 export function drawLine(line: Line, ctx: CanvasRenderingContext2D): void;
 export function drawLine(line: Line, ctx: Drawable = P.path()) {
-  ctx.moveTo(...line[0]);
-  ctx.lineTo(...line[1]);
+  ctx.moveTo(...line[0] as TDPT);
+  ctx.lineTo(...line[1] as TDPT);
   if (!isCtx(ctx)) {
     return ctx.toString();
   }
@@ -34,8 +35,8 @@ export function drawLoop(
   let count = 0;
 
   for (const point of loop) {
-    if (count < 1) ctx.moveTo(...point);
-    else ctx.lineTo(...point);
+    if (count < 1) ctx.moveTo(...point as TDPT);
+    else ctx.lineTo(...point as TDPT);
     count++;
   }
   if (close) ctx.closePath();
@@ -59,8 +60,8 @@ export function drawBezierLoop(
   ctx: Drawable = P.path()
 ) {
   for (let i = 0; i <= loop.length - 3; i += 4) {
-    if (i === 0) ctx.moveTo(...loop[0]);
-    else ctx.lineTo(...loop[i]);
+    if (i === 0) ctx.moveTo(...loop[0] as TDPT);
+    else ctx.lineTo(...loop[i] as TDPT);
     ctx.bezierCurveTo(
       loop[i + 1][0],
       loop[i + 1][1],
@@ -135,7 +136,7 @@ export function drawFauxQuadLoop(
   const start = toDraw.shift();
 
   if (close) toDraw.push(start!);
-  ctx.moveTo(...start!);
+  ctx.moveTo(...start! as TDPT);
   for (let i = 0; i < toDraw.length; i += 2) {
     const [x1, y1, x2, y2] = [...toDraw[i], ...toDraw[i + 1]];
 
@@ -164,7 +165,7 @@ export function drawFauxCubicLoop(
   const start = toDraw.shift();
 
   if (close) toDraw.push(start!);
-  ctx.moveTo(...start!);
+  ctx.moveTo(...start! as TDPT);
   let lasti = 0;
 
   for (let i = 0; i < inputLength - 2; i++) {
@@ -179,7 +180,7 @@ export function drawFauxCubicLoop(
   }
   switch (inputLength - lasti) {
     case 1:
-      ctx.lineTo(...toDraw[lasti]);
+      ctx.lineTo(...toDraw[lasti] as TDPT);
       break;
     case 2:
       const [x1, y1] = toDraw[lasti];

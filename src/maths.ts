@@ -1,7 +1,7 @@
 export const PI = Math.PI;
 export const TAU = 2 * Math.PI;
 const sqrt = Math.sqrt;
-
+type TDPT = [number, number];
 export function rndm(): number;
 export function rndm(max: number): number;
 export function rndm(min: number, max: number): number;
@@ -38,7 +38,7 @@ export function len<T extends XYPt | Pt>(a: T, b: T) {
     return lenxy(a, b);
   }
 
-  return lenAr(a as Pt, b as Pt);
+  return lenAr(a as [number,number], b as [number,number]);
 }
 export function sub(a: Pt, b: Pt): Pt {
   return [a[0] - b[0], a[1] - b[1]];

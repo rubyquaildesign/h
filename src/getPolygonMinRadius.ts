@@ -1,4 +1,5 @@
 import { polygonCentroid } from 'd3-polygon';
+type TDLPT = [number, number][];
 function sqr(x: number) {
   return x * x;
 }
@@ -20,7 +21,7 @@ export function distToSegment(p: Pt, v: Pt, w: Pt) {
 }
 
 export function minDistFromCentroid(poly: Loop) {
-  const c = polygonCentroid(poly);
+  const c = polygonCentroid(poly as TDLPT);
   const r: number[] = [];
 
   for (let i = 0; i < poly.length; i++) {
