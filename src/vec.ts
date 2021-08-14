@@ -1,27 +1,30 @@
 const PI = Math.PI;
-const TAU = PI * 2;
-const {sin, cos, tan, atan2, random} = Math;
+const DEG = 180 / PI;
+const {sin, cos, atan2} = Math;
 
 type point = [number, number];
 
 export type Vp = point | number[];
-// @ts-expect-error
+// @ts-expect-error because reasons
 export class Vec extends Array<number> implements point {
   get x() {
     return this[0];
-  }
-
-  get y() {
-    return this[1];
   }
 
   set x(x: number) {
     this[0] = x;
   }
 
+  get y() {
+    return this[1];
+  }
+
   set y(y: number) {
     this[1] = y;
   }
+
+  angle = this.hAngle;
+  magnitude = this.len;
 
   constructor(input: Vp) {
     super(2);
@@ -31,6 +34,14 @@ export class Vec extends Array<number> implements point {
 
   static fromObject(input: {x: number; y: number}) {
     return new Vec([input.x, input.y]);
+  }
+
+  static r2d(r: number) {
+    return r * DEG;
+  }
+
+  static d2r(d: number) {
+    return d / DEG;
   }
 
   add(inp: Vp) {
@@ -64,12 +75,12 @@ export class Vec extends Array<number> implements point {
   }
 
   divScaler(inp: number) {
-    if (inp !== 0) {
-      this.x /= inp;
-      this.y /= inp;
-    } else {
+    if (inp === 0) {
       this.y = 0;
       this.x = 0;
+    } else {
+      this.x /= inp;
+      this.y /= inp;
     }
 
     return this;
@@ -140,7 +151,6 @@ export class Vec extends Array<number> implements point {
     return atan2(this.x, this.y);
   }
 
-  angle = this.hAngle;
   absAngle() {
     return PI + this.hAngle();
   }
@@ -156,14 +166,6 @@ export class Vec extends Array<number> implements point {
 
   rotateTo(ang: number) {
     return this.rotate(ang - this.angle());
-  }
-
-  private _distX(inp: Vp) {
-    return this.x - inp[0];
-  }
-
-  private _distY(inp: Vp) {
-    return this.y - inp[1];
   }
 
   distSq(inp: Vp) {
@@ -185,7 +187,6 @@ export class Vec extends Array<number> implements point {
     return Math.sqrt(this.lenSq());
   }
 
-  magnitude = this.len;
   norm() {
     const length = this.len();
     if (length === 0) {
@@ -199,5 +200,23 @@ export class Vec extends Array<number> implements point {
     const [ix, iy] = inp;
     const {x, y} = this;
     const coeff = (x * ix + y * iy) / (ix * ix + iy * iy);
+    this.x = coeff * ix;
+    this.y = coeff * iy;
+  }
+
+  isZero() {
+    return this.x === 0 && this.y === 0;
+  }
+
+  equals([ix, iy]: Vp) {
+    return this.x === ix && this.y === iy;
+  }
+
+  private _distX(inp: Vp) {
+    return this.x - inp[0];
+  }
+
+  private _distY(inp: Vp) {
+    return this.y - inp[1];
   }
 }

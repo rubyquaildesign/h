@@ -1,7 +1,6 @@
 import test from 'tape';
-import Del, {Delaunay} from 'd3-delaunay';
+import {Delaunay} from 'd3-delaunay';
 import {path} from 'd3-path';
-import {range} from 'd3-array';
 import {
   drawLine,
   drawFauxQuadLoop,
@@ -9,7 +8,6 @@ import {
   drawBezierLoop,
 } from '../src/drawing';
 import {bezierSpline, djikstraPath, flr, spline} from '../src/index';
-import {writeSvg} from './svgTest';
 
 test('test Maths', (t) => {
   t.plan(3);

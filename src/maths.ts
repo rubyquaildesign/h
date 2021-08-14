@@ -1,16 +1,15 @@
 export const PI = Math.PI;
 export const TAU = 2 * Math.PI;
 const sqrt = Math.sqrt;
-type TDPT = [number, number];
 export function rndm(): number;
 export function rndm(max: number): number;
 export function rndm(min: number, max: number): number;
 export function rndm(...args: number[]) {
-  if (args[0] == null) {
+  if (args[0] === undefined) {
     return Math.random();
   }
 
-  if (args[1] == null) {
+  if (args[1] === undefined) {
     return args[0] * Math.random();
   }
 
@@ -39,7 +38,7 @@ function isXYPt(a: XYPt | Pt): a is XYPt {
   return (a as XYPt).x !== undefined;
 }
 
-export function len<T extends XYPt | Pt>(a: T, b: T) {
+export function length<T extends XYPt | Pt>(a: T, b: T) {
   if (isXYPt(a) && isXYPt(b)) {
     return lenxy(a, b);
   }

@@ -1,5 +1,5 @@
 import {Path} from 'd3-path';
-import {sub, len, TAU} from './maths';
+import {sub, length, TAU} from './maths';
 
 const atan2 = Math.atan2;
 type Pt = [number, number] | number[];
@@ -7,7 +7,7 @@ function propPoint(
   [sx, sy]: Pt,
   seg: number,
   length: number,
-  [dx, dy]: Pt
+  [dx, dy]: Pt,
 ): Pt {
   const factor = seg / length;
 
@@ -16,7 +16,8 @@ function propPoint(
 
 function infoSort(lastPt: Pt, thisPt: Pt, nextPt: Pt, rad: number) {
   const abs = Math.abs;
-  const minL = Math.min(abs(len(lastPt, thisPt)), abs(len(thisPt, nextPt))) / 2;
+  const minL =
+    Math.min(abs(length(lastPt, thisPt)), abs(length(thisPt, nextPt))) / 2;
   const intAng =
     (Math.atan2(thisPt[1] - lastPt[1], thisPt[0] - lastPt[0]) -
       Math.atan2(thisPt[1] - nextPt[1], thisPt[0] - nextPt[0])) /
@@ -33,7 +34,7 @@ function roundedCorner(
   pst: Pt,
   r: number,
   ctx: CanvasRenderingContext2D | Path,
-  ac: boolean
+  ac: boolean,
 ) {
   const PPre = sub(pre, p);
   const PPst = sub(pst, p);
@@ -41,8 +42,8 @@ function roundedCorner(
   const tan = Math.abs(Math.tan(intAng / 2));
   let rad = r;
   let seg = r / tan;
-  const PPreLength = len([0, 0], PPre);
-  const PPstLength = len([0, 0], PPst);
+  const PPreLength = length([0, 0], PPre);
+  const PPstLength = length([0, 0], PPst);
   const minLength = Math.min(PPreLength, PPstLength) / 2;
 
   if (seg > minLength) {
@@ -55,8 +56,8 @@ function roundedCorner(
 
   const dx = p[0] * 2 - preCross[0] - pstCross[0];
   const dy = p[1] * 2 - preCross[1] - pstCross[1];
-  const ll = len([0, 0], [dx, dy]);
-  const dd = len([0, 0], [seg, rad]);
+  const ll = length([0, 0], [dx, dy]);
+  const dd = length([0, 0], [seg, rad]);
   const [cx, cy] = propPoint(p, dd, ll, [dx, dy]);
 
   const preVec = sub(preCross, [cx, cy]);
@@ -84,7 +85,7 @@ function newRd(
   thisPt: Pt,
   nextPt: Pt,
   rad: number,
-  ctx: CanvasRenderingContext2D | Path
+  ctx: CanvasRenderingContext2D | Path,
 ) {
   const is = infoSort(lastPt, thisPt, nextPt, rad);
   let {seg, r} = is;
@@ -101,7 +102,7 @@ function newRd(
 export function drawRoundLoop(
   lp: Loop,
   rad: number,
-  ctx: CanvasRenderingContext2D | Path
+  ctx: CanvasRenderingContext2D | Path,
 ): void {
   const loopTurning = lp.reduce((sum, [ax, ay], i, array) => {
     const l = array.length;

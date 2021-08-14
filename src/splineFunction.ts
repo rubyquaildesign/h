@@ -1,7 +1,6 @@
 import interpolate from 'b-spline';
 import {range} from 'd3-array';
-import {splineToBezier} from './bohm';
-import {catmulToBezier, simplifySpline} from './catmull';
+
 /**
  * Creates and iterator walking through the spline of a given loop outputing the points of the new loop
  * @param loop - a loop of Pts to extract a spline from
@@ -15,13 +14,18 @@ export function* spline(
   close: boolean,
   outputResolution?: number,
 ) {
-  const resolution = outputResolution || loop.length;
+  const resolution = outputResolution ?? loop.length;
   const length = loop.length;
   const toDraw = loop.slice(0);
-  let knots: number[] = new Array(degree + 1).fill(0);
+  let knots: number[] = Array.from({length: degree + 1})!;
+  knots.fill(0);
 
-  knots.push(...range(0, length - (degree + 1)).map((d) => d + 1));
-  knots.push(...new Array(degree + 1).fill(length - degree));
+  knots.push(
+    ...[
+      ...range(0, length - (degree + 1)).map((d) => d + 1),
+      ...range(degree + 1).fill(length - degree),
+    ],
+  );
   if (close) {
     toDraw.push(...toDraw.slice(0, degree));
     knots = range(toDraw.length + (degree + 1));
@@ -34,20 +38,4 @@ export function* spline(
   }
 
   if (!close) yield toDraw[toDraw.length - 1];
-}
-
-/**
- * Beziers spline returns a series of beziers representing a spline
- * @param loop spline to return
- * @param [degree] degree of the spline, defaults to 3
- * @param [close] whether the spline should be closed
- * @returns Bezier series
- */
-export function bezierSpline(loop: Loop, degree = 3, close = false): Loop {
-  if (degree === 3) {
-    return splineToBezier(loop, close);
-  }
-
-  const cm = simplifySpline(loop, degree, close);
-  return catmulToBezier(cm);
 }
