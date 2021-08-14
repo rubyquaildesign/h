@@ -17,7 +17,7 @@ export function* spline(
   const resolution = outputResolution ?? loop.length;
   const length = loop.length;
   const toDraw = loop.slice(0);
-  let knots: number[] = Array.from({length: degree + 1})!;
+  let knots: number[] = range(degree + 1);
   knots.fill(0);
 
   knots.push(
