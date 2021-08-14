@@ -20,7 +20,8 @@
   "prettier": {
     "useTabs": false,
     "singleQuote": true,
-    "tabWidth": 2
+    "tabWidth": 2,
+    "trailingComma": "all"
   },
   "files": [
     "dist",
@@ -54,6 +55,7 @@
     "jsdom": "^16.2.2",
     "prettier": "^2.0.4",
     "rollup": "^2.6.1",
+    "snowpack": "^3.8.6",
     "tap-nyan": "^1.1.0",
     "tape": "^4.13.2",
     "ts-node": "^10.0.0",
