@@ -35,7 +35,8 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "xo && node --experimental-specifier-resolution=node --loader ts-node/esm ./test/tests.ts",
+    "test": "node --experimental-specifier-resolution=node --loader ts-node/esm ./test/tests.ts",
+    "svg-test": "node --experimental-specifier-resolution=node --loader ts-node/esm ./test/svgTest.ts",
     "test-nyan": "node --experimental-specifier-resolution=node --loader ts-node/esm ./test/tests.ts | tap-nyan",
     "prepublish": "yarn build",
     "prepublishOnly": "yarn test"

@@ -1,48 +1,35 @@
-// Import FS from 'fs';
-// import {range} from 'd3-array';
+import { range } from 'd3-array';
+import { path } from 'd3-path';
+import { writeFileSync } from 'fs';
+import * as h from '../src/index';
 
-// Export function writeSvg(
-//   positions: Array<[number, number]>,
-//   path: string,
-//   cp: Array<[number, number]>,
-// ) {
-//   const outputString = `<?xml version="1.0" encoding="utf-8"?>
-//   <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="-3 -3 6 6">
-//   ${positions
-//     .map(
-//       (v) =>
-//         '<circle cx="' + v[0] + '" cy="' + v[1] + '" r="0.1" fill="#3008" />',
-//     )
-//     .join('\n')}
-//     ${range(0, cp.length - 3, 4)
-//       .map(
-//         (i) =>
-//           '<circle cx="' +
-//           cp[i][0] +
-//           '" cy="' +
-//           cp[i][1] +
-//           '" r="0.05" fill="#0035" />' +
-//           '<circle cx="' +
-//           cp[i + 1][0] +
-//           '" cy="' +
-//           cp[i + 1][1] +
-//           '" r="0.05" fill="#0308" />' +
-//           '<circle cx="' +
-//           cp[i + 2][0] +
-//           '" cy="' +
-//           cp[i + 2][1] +
-//           '" r="0.05" fill="#0308" />' +
-//           '<circle cx="' +
-//           cp[i + 3][0] +
-//           '" cy="' +
-//           cp[i + 3][1] +
-//           '" r="0.05" fill="#0035" />',
-//       )
-//       .join('\n')}
-//   <path
-//     d="${path}"
-//     stroke="#000b" fill="#0000" stroke-width="0.03" />
-
-// </svg>`;
-//   FS.writeFileSync('./test.svg', outputString);
-// }
+const NUM_POINTS = 5;
+const testPoints = range(NUM_POINTS).map((i) => {
+  let t = i / NUM_POINTS;
+  let theta = t * (Math.PI * 2);
+  return new h.Vec([Math.cos(theta) * 2, Math.sin(theta) * 2]);
+});
+testPoints.push(new h.Vec([0, 0]));
+const testCatmull = h.catmulToBezier([
+  ...testPoints,
+  ...testPoints.slice(0, 3),
+]);
+const testSpline = h.bezierSpline(testPoints, 2, true);
+const bPath = path();
+h.drawBezierLoop(testCatmull, false, bPath);
+const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width=200 height=200 viewBox="-3 -3 6 6">
+<rect x=-3 y=-3 width=6 height=6 fill="white"/>
+  ${testPoints
+    .map(
+      (v) => `
+  <circle cx=${v.x} cy=${v.y} r=0.1 fill="#0008"/>
+  `,
+    )
+    .join('')}
+<path d=${bPath.toString()} stroke="#f008" stroke-width="0.2" fill="#0000" />
+${testCatmull.map(
+  (p, i) =>
+    `<text x=${p[0]} y=${p[1]} style="font: 0.1px monospace;">${i}</text> `,
+)}
+</svg>`;
+writeFileSync('./test.svg', svgString);

@@ -61,12 +61,12 @@ function splineSegToBezier({
   const bcd = controlPoints[c];
   const cdY = controlPoints[d];
 
-  const bbc = computeAffine({ptA: abc, ptB: bcd, a, b: d, c: b});
-  const bcc = computeAffine({ptA: abc, ptB: bcd, a, b: d, c});
-  const abb = computeAffine({ptA: Xab, ptB: abc, a: a - 1, b: c, c: b});
-  const ccd = computeAffine({ptA: bcd, ptB: cdY, a: b, b: d + 1, c});
-  const ccc = computeAffine({ptA: bcc, ptB: ccd, a: b, b: d, c});
-  const bbb = computeAffine({ptA: abb, ptB: bbc, a, b: c, c: b});
+  const bbc = computeAffine({ ptA: abc, ptB: bcd, a, b: d, c: b });
+  const bcc = computeAffine({ ptA: abc, ptB: bcd, a, b: d, c });
+  const abb = computeAffine({ ptA: Xab, ptB: abc, a: a - 1, b: c, c: b });
+  const ccd = computeAffine({ ptA: bcd, ptB: cdY, a: b, b: d + 1, c });
+  const ccc = computeAffine({ ptA: bcc, ptB: ccd, a: b, b: d, c });
+  const bbb = computeAffine({ ptA: abb, ptB: bbc, a, b: c, c: b });
   return [bbb, bbc, bcc, ccc] as BezierCurve;
 }
 
@@ -80,18 +80,18 @@ const testPoints = [
   [-0.5, 0.5],
   [0.5, 1.5],
 ] as Pt[];
-console.log(
-  splineSegToBezier({a: 0, b: 1, c: 2, d: 3, controlPoints: testPoints}),
-);
-console.log(
-  splineSegToBezier({a: 1, b: 2, c: 3, d: 4, controlPoints: testPoints}),
-);
-console.log(
-  splineSegToBezier({a: 2, b: 3, c: 4, d: 5, controlPoints: testPoints}),
-);
-console.log(
-  splineSegToBezier({a: 3, b: 4, c: 5, d: 6, controlPoints: testPoints}),
-);
+// console.log(
+//   splineSegToBezier({a: 0, b: 1, c: 2, d: 3, controlPoints: testPoints}),
+// );
+// console.log(
+//   splineSegToBezier({a: 1, b: 2, c: 3, d: 4, controlPoints: testPoints}),
+// );
+// console.log(
+//   splineSegToBezier({a: 2, b: 3, c: 4, d: 5, controlPoints: testPoints}),
+// );
+// console.log(
+//   splineSegToBezier({a: 3, b: 4, c: 5, d: 6, controlPoints: testPoints}),
+// );
 export function splineToBezier(pts: Loop, close = false): Loop {
   if (pts.length < 4) throw new Error('too few points for spline');
   const cp = [...pts];
