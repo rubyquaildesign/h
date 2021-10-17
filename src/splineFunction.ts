@@ -21,10 +21,8 @@ export function* spline(
   knots.fill(0);
 
   knots.push(
-    ...[
-      ...range(0, length - (degree + 1)).map((d) => d + 1),
-      ...range(degree + 1).fill(length - degree),
-    ],
+    ...range(0, length - (degree + 1)).map((d) => d + 1),
+    ...range(degree + 1).fill(length - degree),
   );
   if (close) {
     toDraw.push(...toDraw.slice(0, degree));

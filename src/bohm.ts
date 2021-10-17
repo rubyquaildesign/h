@@ -70,16 +70,16 @@ function splineSegToBezier({
   return [bbb, bbc, bcc, ccc] as BezierCurve;
 }
 
-const testPoints = [
-  [1.5, 0.5],
-  [0.5, 0],
-  [-0.5, 0.5],
-  [0.5, 1.5],
-  [1.5, 0.5],
-  [0.5, 0],
-  [-0.5, 0.5],
-  [0.5, 1.5],
-] as Pt[];
+// Const testPoints = [
+//   [1.5, 0.5],
+//   [0.5, 0],
+//   [-0.5, 0.5],
+//   [0.5, 1.5],
+//   [1.5, 0.5],
+//   [0.5, 0],
+//   [-0.5, 0.5],
+//   [0.5, 1.5],
+// ] as Pt[];
 // Console.log(
 //   splineSegToBezier({a: 0, b: 1, c: 2, d: 3, controlPoints: testPoints}),
 // );

@@ -27,7 +27,9 @@
       "@typescript-eslint/no-unsafe-assignment": 0,
       "@typescript-eslint/no-unsafe-call": 0,
       "@typescript-eslint/no-unsafe-member-access": 0,
-      "@typescript-eslint/restrict-template-expressions": 0
+      "@typescript-eslint/restrict-template-expressions": 0,
+      "@typescript-eslint/unified-signatures": 0,
+      "no-implicit-globals": 0
     }
   },
   "prettier": {
@@ -77,10 +79,10 @@
     "tape": "^4.13.2",
     "ts-node": "^10.0.0",
     "tsup": "^5.4.0",
-    "typescript": "^3.8.3",
+    "typescript": "^4.4.4",
     "vite": "^2.6.7",
     "vite-dts": "^1.0.3",
-    "xo": "0.42"
+    "xo": "^0.4"
   },
   "dependencies": {
     "b-spline": "^2.0.1",
