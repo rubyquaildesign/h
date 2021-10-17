@@ -34,8 +34,7 @@
     "bracketSpacing": true
   },
   "files": [
-    "dist",
-    "types"
+    "dist"
   ],
   "types": "dist/main.d.ts",
   "scripts": {
