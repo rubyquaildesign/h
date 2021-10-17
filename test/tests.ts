@@ -1,13 +1,13 @@
 import test from 'tape';
-import {Delaunay} from 'd3-delaunay';
-import {path} from 'd3-path';
+import { Delaunay } from 'd3-delaunay';
+import { path } from 'd3-path';
 import {
   drawLine,
   drawFauxQuadLoop,
   drawLoop,
   drawBezierLoop,
 } from '../src/drawing';
-import {bezierSpline, djikstraPath, flr, spline} from '../src/index';
+import { bezierSpline, djikstraPath, flr, spline } from '../src/main';
 
 test('test Maths', (t) => {
   t.plan(3);
@@ -76,7 +76,7 @@ test('quadLine', (t) => {
 test('djikstra', (t) => {
   t.doesNotThrow(() => {
     type pt = [number, number];
-    const pts: pt[] = Array.from({length: 32})
+    const pts: pt[] = Array.from({ length: 32 })
       .fill(0)
       .map(() => [Math.random(), Math.random()]);
     const del = Delaunay.from(pts);
