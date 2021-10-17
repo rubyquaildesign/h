@@ -1,6 +1,6 @@
 const PI = Math.PI;
 const DEG = 180 / PI;
-const {sin, cos, atan2} = Math;
+const { sin, cos, atan2 } = Math;
 
 type point = [number, number];
 
@@ -32,7 +32,7 @@ export class Vec extends Array<number> implements point {
     this[1] = input[1] || 0;
   }
 
-  static fromObject(input: {x: number; y: number}) {
+  static fromObject(input: { x: number; y: number }) {
     return new Vec([input.x, input.y]);
   }
 
@@ -156,7 +156,7 @@ export class Vec extends Array<number> implements point {
   }
 
   rotate(amt: number) {
-    const {x, y} = this;
+    const { x, y } = this;
     const nx = x * cos(amt) - y * sin(amt);
     const ny = x * sin(amt) + y * cos(amt);
     this.x = nx;
@@ -179,7 +179,7 @@ export class Vec extends Array<number> implements point {
   }
 
   lenSq() {
-    const {x, y} = this;
+    const { x, y } = this;
     return x ** 2 + y ** 2;
   }
 
@@ -198,7 +198,7 @@ export class Vec extends Array<number> implements point {
 
   projectOn(inp: Vp) {
     const [ix, iy] = inp;
-    const {x, y} = this;
+    const { x, y } = this;
     const coeff = (x * ix + y * iy) / (ix * ix + iy * iy);
     this.x = coeff * ix;
     this.y = coeff * iy;

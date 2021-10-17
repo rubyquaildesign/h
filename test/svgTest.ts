@@ -1,12 +1,12 @@
+import { writeFileSync } from 'fs';
 import { range } from 'd3-array';
 import { path } from 'd3-path';
-import { writeFileSync } from 'fs';
-import * as h from '../src/index';
+import * as h from '../src/main';
 
 const NUM_POINTS = 5;
 const testPoints = range(NUM_POINTS).map((i) => {
-  let t = i / NUM_POINTS;
-  let theta = t * (Math.PI * 2);
+  const t = i / NUM_POINTS;
+  const theta = t * (Math.PI * 2);
   return new h.Vec([Math.cos(theta) * 2, Math.sin(theta) * 2]);
 });
 testPoints.push(new h.Vec([0, 0]));

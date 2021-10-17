@@ -18,11 +18,11 @@ export function djikstraPath<T = number>(
   getNeighbours: NeighbourFunc<T>,
   getDistance: DistanceFunc<T> = () => 1,
 ) {
-  const frontier = new TinyQueue<{v: T; n: number}>(
+  const frontier = new TinyQueue<{ v: T; n: number }>(
     undefined,
     (a, b) => b.n - a.n,
   );
-  frontier.push({v: start, n: 0});
+  frontier.push({ v: start, n: 0 });
   const cameFrom = new Map<T, T | null>();
   const distanceTo = new Map<T, number>();
   cameFrom.set(start, null);
@@ -37,7 +37,7 @@ export function djikstraPath<T = number>(
       const newDistance = distanceTo.get(current)! + getDistance(current, n);
       if (!distanceTo.has(n) || newDistance < distanceTo.get(n)!) {
         distanceTo.set(n, newDistance);
-        frontier.push({n: newDistance, v: n});
+        frontier.push({ n: newDistance, v: n });
         cameFrom.set(n, current);
       }
     }
@@ -47,8 +47,8 @@ export function djikstraPath<T = number>(
   if (!cameFrom.has(end)) throw new Error('No Route Found');
   let next = cameFrom.get(end);
   while (next !== null) {
-    path.unshift(next!);
-    next = cameFrom.get(next!);
+    path.unshift(next);
+    next = cameFrom.get(next);
   }
 
   return path;

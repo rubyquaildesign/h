@@ -1,5 +1,5 @@
-import {Path} from 'd3-path';
-import {sub, length, TAU} from './maths';
+import { Path } from 'd3-path';
+import { sub, length, TAU } from './maths';
 
 const atan2 = Math.atan2;
 type Pt = [number, number] | number[];
@@ -25,7 +25,7 @@ function infoSort(lastPt: Pt, thisPt: Pt, nextPt: Pt, rad: number) {
   const r = rad;
   const seg = r / Math.abs(Math.tan(intAng));
 
-  return {seg, minL, r, intAng};
+  return { seg, minL, r, intAng };
 }
 
 function roundedCorner(
@@ -88,8 +88,8 @@ function newRd(
   ctx: CanvasRenderingContext2D | Path,
 ) {
   const is = infoSort(lastPt, thisPt, nextPt, rad);
-  let {seg, r} = is;
-  const {minL, intAng} = is;
+  let { seg, r } = is;
+  const { minL, intAng } = is;
 
   if (seg > minL) {
     seg = minL;
@@ -128,8 +128,8 @@ export function drawRoundLoop(
   });
   // NewRd(lp[lp.length - 1], lp[0], [sX, sY], rad, ctx);
   const is = infoSort(lp[lp.length - 1], lp[0], lp[1], rad);
-  let {seg, r} = is;
-  const {minL, intAng} = is;
+  let { seg, r } = is;
+  const { minL, intAng } = is;
 
   if (seg > minL) {
     seg = minL;

@@ -80,7 +80,7 @@ const testPoints = [
   [-0.5, 0.5],
   [0.5, 1.5],
 ] as Pt[];
-// console.log(
+// Console.log(
 //   splineSegToBezier({a: 0, b: 1, c: 2, d: 3, controlPoints: testPoints}),
 // );
 // console.log(

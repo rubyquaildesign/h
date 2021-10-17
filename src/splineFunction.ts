@@ -1,5 +1,5 @@
 import interpolate from 'b-spline';
-import {range} from 'd3-array';
+import { range } from 'd3-array';
 
 /**
  * Creates and iterator walking through the spline of a given loop outputing the points of the new loop

@@ -1,4 +1,4 @@
-import {polygonCentroid} from 'd3-polygon';
+import { polygonCentroid } from 'd3-polygon';
 
 type TDLPT = Array<[number, number]>;
 function sqr(x: number) {

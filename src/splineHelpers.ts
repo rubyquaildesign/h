@@ -1,5 +1,5 @@
-import {splineToBezier} from './bohm';
-import {catmulToBezier, simplifySpline} from './catmull';
+import { splineToBezier } from './bohm';
+import { catmulToBezier, simplifySpline } from './catmull';
 /**
  * Beziers spline returns a series of beziers representing a spline
  * @param loop spline to return

@@ -44,7 +44,10 @@
     "dev": "vite",
     "test": "node --experimental-specifier-resolution=node --loader ts-node/esm ./test/tests.ts",
     "svg-test": "node --experimental-specifier-resolution=node --loader ts-node/esm ./test/svgTest.ts",
-    "test-nyan": "node --experimental-specifier-resolution=node --loader ts-node/esm ./test/tests.ts | tap-nyan"
+    "test-nyan": "node --experimental-specifier-resolution=node --loader ts-node/esm ./test/tests.ts | tap-nyan",
+    "prepare": "yarn run build",
+    "prepublishOnly": "npm test && xo./src/*",
+    "preversion": "xo./src/*"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.1.0",
