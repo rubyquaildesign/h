@@ -44,6 +44,87 @@ export class Vec extends Array<number> implements point {
     return d / DEG;
   }
 
+  static lerp(p0: Vp, p1: Vp, t: number) {
+    return new Vec(p0).add(new Vec(p1).mulScaler(t)).mulScaler(1 - t);
+  }
+
+  static DCQuadBeziercurve(p0: Vp, p1: Vp, p2: Vp, t: number) {
+    const q1 = this.lerp(p0, p1, t);
+    const q2 = this.lerp(p1, p2, t);
+    const op = this.lerp(q1, q2, t);
+    return op;
+  }
+
+  static DCCubicBezierCurve([p0, p1, p2, p3]: Vp[], t: number) {
+    const { lerp } = this;
+    const c1 = lerp(p0, p1, t);
+    const c2 = lerp(p1, p2, t);
+    const c3 = lerp(p2, p3, t);
+    const q1 = lerp(c1, c2, t);
+    const q2 = lerp(c2, c3, t);
+    const op = lerp(q1, q2, t);
+    return op;
+  }
+
+  static _bezPn1 = (t: number) => {
+    const t3 = t ** 3;
+    const t2 = t ** 2;
+    return -1 * t3 + 3 * t2 + -3 * t + 1;
+  };
+
+  static _bezPn2 = (t: number) => {
+    const t3 = t ** 3;
+    const t2 = t ** 2;
+    return 3 * t3 + -6 * t2 + 3 * t + 0;
+  };
+
+  static _bezPn3 = (t: number) => {
+    const t3 = t ** 3;
+    const t2 = t ** 2;
+    return -3 * t3 + 3 * t2 + 0 * t + 0;
+  };
+
+  static _bezPn4 = (t: number) => {
+    const t3 = t ** 3;
+    return t3;
+  };
+
+  static _derivitivePn1 = (t: number) => {
+    const t2 = t ** 2;
+    return -3 * t2 + 6 * t - 3;
+  };
+
+  static _derivitivePn2 = (t: number) => {
+    const t2 = t ** 2;
+    return 9 * t2 + -12 * t + 3;
+  };
+
+  static _derivitivePn3 = (t: number) => {
+    const t2 = t ** 2;
+    return -9 * t2 + 6 * t + 0;
+  };
+
+  static _derivitivePn4 = (t: number) => {
+    const t2 = t ** 2;
+    return 3 * t2 + 0 * t + 0;
+  };
+
+  static bernsteinCubicBezierCurve([p0, p1, p2, p3]: Vp[], t: number) {
+    const A = new Vec(p0).mulScaler(Vec._bezPn1(t));
+    const B = new Vec(p1).mulScaler(Vec._bezPn2(t));
+    const C = new Vec(p2).mulScaler(Vec._bezPn3(t));
+    const D = new Vec(p3).mulScaler(Vec._bezPn4(t));
+    return A.add(B).add(C).add(D);
+  }
+
+  static cubicBezierCurveDerivitive([p0, p1, p2, p3]: Vp[], t: number) {
+    const A = new Vec(p0).mulScaler(Vec._derivitivePn1(t));
+    const B = new Vec(p1).mulScaler(Vec._derivitivePn2(t));
+    const C = new Vec(p2).mulScaler(Vec._derivitivePn3(t));
+    const D = new Vec(p3).mulScaler(Vec._derivitivePn4(t));
+    return A.add(B).add(C).add(D);
+  }
+
   add(inp: Vp) {
     this.x += inp[0];
     this.y += inp[1];
