@@ -5,21 +5,26 @@
   },
   "compilerOptions": {
     "module": "ESNext",
-    "outDir": "dist",
-    "rootDir": "src",
-    "baseUrl": "src",
+    // "outDir": "dist",
+    // "rootDir": "src",
+    // "baseUrl": "src",
+    "strict": false,
     "target": "ESNext",
     "jsx": "react",
     "importHelpers": false,
+    "isolatedModules": false,
+    "useDefineForClassFields": true,
     "moduleResolution": "node",
+    "sourceMap": true,
     "esModuleInterop": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "lib": ["ESNext", "ES2019", "DOM"],
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": false,
     "declaration": true,
     "declarationDir": "types",
-    "strict": true
+    "resolveJsonModule": true,
+    "noEmit": false,
+    "types": ["vite/client"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["./src"],
+  "exclude": ["node_modules/**/*"]
 }
