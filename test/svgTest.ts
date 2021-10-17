@@ -14,7 +14,7 @@ const testCatmull = h.catmulToBezier([
   ...testPoints,
   ...testPoints.slice(0, 3),
 ]);
-const testSpline = h.bezierSpline(testPoints, 2, true);
+// Const testSpline = h.bezierSpline(testPoints, 2, true);
 const bPath = path();
 h.drawBezierLoop(testCatmull, false, bPath);
 const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width=200 height=200 viewBox="-3 -3 6 6">
