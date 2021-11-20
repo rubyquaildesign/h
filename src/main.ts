@@ -10,3 +10,4 @@ export * from './getPolygonMinRadius';
 export * from './bohm';
 export * from './catmull';
 export * from './vec';
+export * from './anim/index';
